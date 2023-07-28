@@ -11,10 +11,12 @@ Prerequisites
 * As part of the system mentioned above, an admin (superuser) must be established to access the service as a developer.
 
 
-Creation of initial model weights
+Creation of initial model weights and schema
 *************
-* To create a weights file that contains fresh weights for dataprofiler with the correct labels run `python3 create_initial_model_weights.py`
-* This will create a file with the weights you need in the form of a json file at `create_initial_model_weights.json`
+* To create and serialize the dataprofiler model's initial json files, run `python3 create_initial_model_json_files.py`
+* This will create two JSON files:
+  - `initial_model_weights.json` contains fresh weights with the correct labels
+  - `initial_model_schema.json` contains the schema for the model
 
 Initializing a model
 ********************
