@@ -38,7 +38,7 @@ reStructuredText Docstring Format is the standard. Here is an example:
 
 ### How to update the documentation:
 
-1. Either with an existing clone of `capitalone/federated-model-aggregation` or clone the `capitalone/federated-model-aggregation` reposotory to your local computer with the following command:
+1. Either with an existing clone of `capitalone/federated-model-aggregation` or clone the `capitalone/federated-model-aggregation` reposittory to your local computer with the following command:
 ```bash
 git clone https://github.com/capitalone/federated-model-aggregation.git
 ```
