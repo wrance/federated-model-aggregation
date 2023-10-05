@@ -1,3 +1,4 @@
+
 Python Developer / Client Example
 =================================
 
@@ -31,13 +32,17 @@ Once you have started the service locally on your browser the service will ask y
 
 * This will take you to a page called "Federated Model List"
 
-  * "Initial model" field: This is where the json formatted values for your model go (usually weights from previous above step)
-  * "Name" field: The name of the model aggregation
-  * "Requirement" field: A dropdown list of additional requirements functions for aggregation that are explained below
-  * "Requirement args": A list of arguments for the extra requirements function above
-  * "Aggregator": A field to fill out the aggregation function you wish to use for your client models
-  * "Developer": (should see your username)
-  * "Clients" field: a selectable list that shows all the clients subscribed to your service
+  * "Allow aggregation": Check the box if aggregation should be started immediately
+  * "Aggregator" (Required): A field to fill out the aggregation function you wish to use for your client models
+  * "Requirement" (Required): A dropdown list of additional requirements functions for aggregation that are explained below
+  * "Initial model" (Optional): This is where the json formatted values for your model go (usually weights from previous above step)
+  * "Name" (Optional): The name of the model aggregation
+  * "Requirement args" (Optional): A list of arguments for the extra requirements function above
+  * "Update schema" (Optional): The expected structure of Model Updates
+  * "Client agg results schema" (Optional): The layout of the results the client is pushing to the FMA service
+  * "Furthest base agg" (Optional): The delta from the current FMA aggregate id which may be queried from the FMA service by clients for a valid model update
+  * "Developer" (Optional): (You should see your username here)
+  * "Clients" (Optional): A selectable list that shows all the clients subscribed to your service
       - This can be left alone if there are not specific clients with which you wish to interact for this model.
 
 * Once all relevant fields are filled out, click "POST" and your model aggregation is created.
