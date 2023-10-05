@@ -228,11 +228,13 @@
 <li><p>As part of the system mentioned above, an admin (superuser) must be established to access the service as a developer.</p></li>
 </ul>
 </section>
-<section id="creation-of-initial-model-weights">
-<h2>Creation of initial model weights<a class="headerlink" href="#creation-of-initial-model-weights" title="Permalink to this heading">#</a></h2>
+<section id="creation-of-initial-model-weights-and-schema">
+<h2>Creation of initial model weights and schema<a class="headerlink" href="#creation-of-initial-model-weights-and-schema" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p>To create a weights file that contains fresh weights for dataprofiler with the correct labels run <cite>python3 create_initial_model_weights.py</cite></p></li>
-<li><p>This will create a file with the weights you need in the form of a json file at <cite>create_initial_model_weights.json</cite></p></li>
+<li><p>To create and serialize the dataprofiler model’s initial json files, run <cite>python3 create_initial_model_json_files.py</cite></p></li>
+<li><p>This will create two JSON files:
+- <cite>initial_model_weights.json</cite> contains fresh weights with the correct labels
+- <cite>initial_model_schema.json</cite> contains the schema for the model</p></li>
 </ul>
 </section>
 <section id="initializing-a-model">
@@ -248,14 +250,18 @@
 </li>
 <li><p>This will take you to a page called “Federated Model List”</p>
 <ul>
-<li><p>“Initial model” field: This is where the json formatted values for your model go (usually weights from previous above step)</p></li>
-<li><p>“Name” field: The name of the model aggregation</p></li>
-<li><p>“Requirement” field: A dropdown list of additional requirements functions for aggregation that are explained below</p></li>
-<li><p>“Requirement args”: A list of arguments for the extra requirements function above</p></li>
-<li><p>“Aggregator”: A field to fill out the aggregation function you wish to use for your client models</p></li>
-<li><p>“Developer”: (should see your username)</p></li>
+<li><p>“Allow aggregation”: Check the box if aggregation should be started immediately</p></li>
+<li><p>“Aggregator” (Required): A field to fill out the aggregation function you wish to use for your client models</p></li>
+<li><p>“Requirement” (Required): A dropdown list of additional requirements functions for aggregation that are explained below</p></li>
+<li><p>“Initial model” (Optional): This is where the json formatted values for your model go (usually weights from previous above step)</p></li>
+<li><p>“Name” (Optional): The name of the model aggregation</p></li>
+<li><p>“Requirement args” (Optional): A list of arguments for the extra requirements function above</p></li>
+<li><p>“Update schema” (Optional): The expected structure of Model Updates</p></li>
+<li><p>“Client agg results schema” (Optional): The layout of the results the client is pushing to the FMA service</p></li>
+<li><p>“Furthest base agg” (Optional): The delta from the current FMA aggregate id which may be queried from the FMA service by clients for a valid model update</p></li>
+<li><p>“Developer” (Optional): (You should see your username here)</p></li>
 <li><dl class="simple">
-<dt>“Clients” field: a selectable list that shows all the clients subscribed to your service</dt><dd><ul>
+<dt>“Clients” (Optional): A selectable list that shows all the clients subscribed to your service</dt><dd><ul>
 <li><p>This can be left alone if there are not specific clients with which you wish to interact for this model.</p></li>
 </ul>
 </dd>
@@ -267,16 +273,22 @@
 </ul>
 <section id="dataprofiler-example">
 <h3>Dataprofiler Example<a class="headerlink" href="#dataprofiler-example" title="Permalink to this heading">#</a></h3>
-<p>A demonstration of the federated model aggregation service for the dataprofiler.</p>
+<p>A demonstration of the federated model aggregation service for the DataProfiler.</p>
 <section id="running-the-example">
 <h4>Running the Example<a class="headerlink" href="#running-the-example" title="Permalink to this heading">#</a></h4>
 <ol class="arabic simple">
 <li><p>Make sure the FMA service is up and running via this <span class="xref myst">server setup readme</span></p></li>
 <li><p>Upload custom model weight extraction function to <span class="xref myst">model_utils.py</span></p></li>
-<li><p>Run example, specifying the desired number of clients (n=3), user (abc123), the base url the service is at (http://localhost:8000),
-the number of epochs to run the experiment (1), and the train entities (None) to be included in the experiment.</p></li>
+<li><p>Execute <code class="docutils literal notranslate"><span class="pre">run_example.sh</span></code>, specifying the:</p></li>
 </ol>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bash</span> <span class="n">run_example</span><span class="o">.</span><span class="n">sh</span> <span class="mi">3</span> <span class="n">abc123</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span><span class="mi">8000</span> <span class="mi">1</span> <span class="kc">None</span>
+<ul class="simple">
+<li><p>desired number of clients (n=3)</p></li>
+<li><p>admin username (&lt;REPLACE_WITH_ADMIN_USERNAME&gt;)</p></li>
+<li><p>the base url the service is at (http://localhost:8000)</p></li>
+<li><p>the number of epochs to run the experiment (1)</p></li>
+<li><p>and the train entities (None) to be included in the experiment</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bash</span> <span class="n">run_example</span><span class="o">.</span><span class="n">sh</span> <span class="mi">3</span> <span class="o">&lt;</span><span class="n">REPLACE_WITH_ADMIN_USERNAME</span><span class="o">&gt;</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span><span class="mi">8000</span> <span class="mi">1</span> <span class="kc">None</span>
 </pre></div>
 </div>
 <section id="details-on-run-example-sh">
@@ -350,7 +362,7 @@ the number of epochs to run the experiment (1), and the train entities (None) to
 <li><a class="reference internal" href="#">Python Developer / Client Example</a><ul>
 <li><a class="reference internal" href="#usage-of-federated-model-aggregation-service">Usage of Federated Model Aggregation service</a></li>
 <li><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
-<li><a class="reference internal" href="#creation-of-initial-model-weights">Creation of initial model weights</a></li>
+<li><a class="reference internal" href="#creation-of-initial-model-weights-and-schema">Creation of initial model weights and schema</a></li>
 <li><a class="reference internal" href="#initializing-a-model">Initializing a model</a><ul>
 <li><a class="reference internal" href="#dataprofiler-example">Dataprofiler Example</a><ul>
 <li><a class="reference internal" href="#running-the-example">Running the Example</a><ul>
